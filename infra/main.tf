@@ -11,7 +11,10 @@ locals {
   # Target port to expose
   target_port = 3000
 
-  ## ECS Service config
+  # VPV
+  vpc_az = ["us-east-1a", "us-east-1b", "us-east-1d"]
+
+  # ECS Service config
   ecs_launch_type = "FARGATE"
   ecs_desired_count = 2
   ecs_network_mode = "awsvpc"
@@ -44,7 +47,7 @@ module "networking" {
     "10.0.21.0/24",
     "10.0.31.0/24"
   ]
-  azs = ["us-east-1a", "us-east-1b", "us-east-1d"]
+  azs = local.vpc_azs
 }
 
 ## Load Balancer and Target groups
